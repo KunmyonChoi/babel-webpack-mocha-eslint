@@ -1,5 +1,5 @@
 {
-  "name": "node-webpack",
+  "name": "babel-webpack-mocha-eslint",
   "version": "1.0.0",
   "description": "",
   "entry": "./src/index.js",
