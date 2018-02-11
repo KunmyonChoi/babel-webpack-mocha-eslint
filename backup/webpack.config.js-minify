@@ -1,0 +1,53 @@
+// const webpack = require('webpack');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const path = require('path');
+
+module.exports = {
+    target: 'node',
+    context: path.resolve(__dirname, 'src'),
+    entry: ['regenerator-runtime/runtime', './index.js'],
+    entry: './index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'index.js'
+    },
+    module: {
+        rules: [
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader:'eslint-loader',
+                    options: {
+                        failOnError: false,
+                        failOnWarning: false
+                    }
+                }
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
+            }
+        ]
+    },
+    plugins: [
+        new ProgressBarPlugin(),
+        // process.env.NODE_ENV == 'production' && new webpack.optimize.UglifyJsPlugin({
+        //     uglifyOptions: {
+        //         ecma: 8
+        //     }
+        // })
+    ].filter(function(r) { return r !== false; }),
+    node: {
+        console: true,
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+    },
+    stats: {
+        warnings: false
+    },
+    devtool: process.env.NODE_ENV == 'production' ? 'eval' : 'source-map'
+};

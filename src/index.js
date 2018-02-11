@@ -1,13 +1,5 @@
-const debug = require('debug');
-const logger = debug('app');
-const hello = require('./hello');
-const world = require('./world');
+const app = require('./app.js');
+//const mq = require('./mq.js');
 
-const fn = () => {
-    return ['Support arrow function', 'Support spread'];
-}
-
-let [arrow, spread]= fn();
-
-logger(hello + world);
-logger(arrow, spread);
+//mq.connect();
+app.start();

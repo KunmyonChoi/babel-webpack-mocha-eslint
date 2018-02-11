@@ -1,9 +1,20 @@
-var should = require('should');
+require('should');
+const request = require('supertest');
+const app = require('../src/app.js');
 
-describe('Array', () => {
-    describe('#indexOf()', () => {
-        it('should return -1 when the value is not present', function() {
-            [1,2,3].indexOf(4).should.be.exactly(-1);
+
+describe('Account', () => {
+    describe('#init()', () => {
+        it('should return -1 when the value is not present', (done) => {
+            request(app.app)
+                .get('/hello')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) return done(err);
+                    res.text.should.be.exactly('Hello World');
+                    done();
+                });
         });
     });
 });
+
