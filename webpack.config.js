@@ -30,7 +30,8 @@ let config = {
     },
     stats: {
         warnings: false
-    }
+    },
+    externals: ['pg', 'sqlite3', 'tedious', 'pg-hstore']
 };
 
 if (process.env.ENABLE_LINT_ON_BUILD) {

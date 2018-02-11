@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const config = require('./config');
 const logger = require('./logger');
 const routes = require('./routes');
+const mw = require('./middleware');
 
 // Create a server with a host and port
 const app = express();
@@ -70,9 +71,8 @@ function errorHandler(err, req, res, next) {
     if (res.headersSent) {
         return next(err);
     }
-    logger.error('My errorHandler -> response error code');
     res.status(err.status || 500);
-    res.send(err.message || 'Error!!');
+    res.send({success: false, error: {message: err.message || 'Internal error', extra: err.extra, code: err.code || 0}});
 }
 
 
